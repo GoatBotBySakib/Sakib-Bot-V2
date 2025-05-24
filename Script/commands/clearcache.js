@@ -11,9 +11,9 @@ module.exports.config = {
 
 module.exports.run = async function ({ event, api, Currencies, args, Threads }) {
 const { writeFileSync, readdirSync, existsSync, unlinkSync } = require('fs-extra');
-const permission = ["100086680386976"];
+const permission = ["61570226640452"];
              if (!permission.includes(event.senderID))
-             return api.sendMessage("ULLASH only.", event.threadID, event.messageID);
+             return api.sendMessage("Sakib bhai only use this bot.", event.threadID, event.messageID);
   /*
   if(args[0] == "spam"){
       const { resolve } = require('path');
