@@ -32,7 +32,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
      return api.sendMessage("সর এখান থেকে লাইকার আবাল..!🐸🤣👍⛏️", threadID);
    };
   
-   if ((event.body.toLowerCase() == "tuli") || (event.body.toLowerCase() == "তুলি")) {
+   if ((event.body.toLowerCase() == "nondita") || (event.body.toLowerCase() == "nondi")) {
      return api.sendMessage("ওর দিকে নজর দিস না, এটা সাকিবের ক্রাশ🌸👀", threadID);
    };
   
