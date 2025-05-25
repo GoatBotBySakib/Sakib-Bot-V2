@@ -90,6 +90,123 @@ if (args[0] == "all") {
     const numberOfOnePage = 15;
     let i = 0;
     let msg = "";
+module.exports.config = {
+  name: "help",
+  version: "1.0.2",
+  hasPermssion: 0,
+  credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
+  description: "FREE SET-UP MESSENGER",
+  commandCategory: "system",
+  usages: "[name | all | page]",
+  cooldowns: 5,
+  envConfig: {
+    autoUnsend: true,
+    delayUnsend: 20
+  }
+};
+
+module.exports.languages = {
+  "en": {
+    "moduleInfo": `
+📦 Module Name: %1
+📄 Description: %2
+💡 Usage: %3
+📁 Category: %4
+⏱️ Cooldown: %5s
+🔐 Permission: %6
+👨‍💻 Coded by: %7`,
+    "helpList": '[There are %1 commands. Use: "%2help nameCommand" to learn more]',
+    "user": "User",
+    "adminGroup": "Admin (Group)",
+    "adminBot": "Admin (Bot)"
+  }
+};
+
+module.exports.handleEvent = function ({ api, event, getText }) {
+  const { commands } = global.client;
+  const { threadID, messageID, body } = event;
+
+  if (!body || !body.toLowerCase().startsWith("help")) return;
+
+  const args = body.trim().split(/\s+/);
+  if (args.length < 2) return;
+
+  const commandName = args[1].toLowerCase();
+  const command = commands.get(commandName);
+  if (!command) return;
+
+  const threadSetting = global.data.threadData.get(parseInt(threadID)) || {};
+  const prefix = threadSetting.PREFIX || global.config.PREFIX;
+
+  return api.sendMessage(getText("moduleInfo",
+    command.config.name,
+    command.config.description,
+    `${prefix}${command.config.name} ${command.config.usages || ""}`,
+    command.config.commandCategory,
+    command.config.cooldowns,
+    command.config.hasPermssion == 0 ? getText("user") :
+      command.config.hasPermssion == 1 ? getText("adminGroup") :
+      getText("adminBot"),
+    command.config.credits
+  ), threadID, messageID);
+};
+
+module.exports.run = function ({ api, event, args, getText }) {
+  const { commands } = global.client;
+  const { threadID, messageID } = event;
+  const threadSetting = global.data.threadData.get(parseInt(threadID)) || {};
+  const prefix = threadSetting.PREFIX || global.config.PREFIX;
+
+  const arrayInfo = Array.from(commands.keys()).sort();
+  const totalCommands = arrayInfo.length;
+  const perPage = 15;
+  const page = Math.max(1, parseInt(args[0])) || 1;
+  const start = (page - 1) * perPage;
+  const end = start + perPage;
+
+  if (args[0]?.toLowerCase() === "all") {
+    const grouped = {};
+    for (const [_, cmd] of commands) {
+      const group = cmd.config.commandCategory || "Others";
+      if (!grouped[group]) grouped[group] = [];
+      grouped[group].push(cmd.config.name);
+    }
+
+    let msg = "📚 COMMAND LIST\n\n";
+    for (const category in grouped) {
+      msg += `🔸 ${category}:\n${grouped[category].join(", ")}\n\n`;
+    }
+
+    msg += `🧮 Total: ${totalCommands} commands\n🧭 Use "${prefix}help [name]" for details`;
+    return api.sendMessage(msg, threadID, messageID);
+  }
+
+  if (args[0] && commands.has(args[0].toLowerCase())) {
+    const cmd = commands.get(args[0].toLowerCase());
+    return api.sendMessage(getText("moduleInfo",
+      cmd.config.name,
+      cmd.config.description,
+      `${prefix}${cmd.config.name} ${cmd.config.usages || ""}`,
+      cmd.config.commandCategory,
+      cmd.config.cooldowns,
+      cmd.config.hasPermssion == 0 ? getText("user") :
+        cmd.config.hasPermssion == 1 ? getText("adminGroup") :
+        getText("adminBot"),
+      cmd.config.credits
+    ), threadID, messageID);
+  }
+
+  const listToShow = arrayInfo.slice(start, end);
+  const helpText = listToShow.map(cmd => `• ${cmd}`).join("\n");
+
+  const message = `📖 HELP MENU (Page ${page}/${Math.ceil(totalCommands / perPage)})
+Total Commands: ${totalCommands}
+Use: ${prefix}help [name] for details
+
+${helpText}`;
+
+  return api.sendMessage(message, threadID, messageID);
+};
 
     for (var [name, value] of (commands)) {
       name += ``;
