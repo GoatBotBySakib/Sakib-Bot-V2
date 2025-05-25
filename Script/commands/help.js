@@ -106,10 +106,10 @@ const first = numberOfOnePage * page - numberOfOnePage;
     const siu = `╭──────•◈•──────╮\nNOOB ☢️_𖣘 -BOT ⚠️ TEAM_ ☢️ \n |   🄲🄾🄼🄼🄰🄽🄳 🄻🄸🅂🅃       \n╰──────•◈•──────╯`;
 const text = `╭──────•◈•──────╮\n│𝗨𝘀𝗲 ${prefix}help [Name?]\n│𝗨𝘀𝗲 ${prefix}help [Page?]\n│𝗡𝗔𝗠𝗘 𝗢𝗪𝗡𝗘𝗥 : │ ᏕᏗᏦᎥᏰ ᏰᏂᏗᎥ\n│𝗧𝗢𝗧𝗔𝗟 : [${arrayInfo.length}]\n│📛🄿🄰🄶🄴📛 :  [${page}/${Math.ceil(arrayInfo.length/numberOfOnePage)}]\n╰──────•◈•──────╯`; 
     var link = [
-"https://imgur.com/a/Czjo94h", "https://imgur.com/a/Czjo94h", "https://imgur.com/a/Czjo94h", "https://imgur.com/a/Czjo94h",
-"https://imgur.com/a/Czjo94h",
-"https://imgur.com/a/Czjo94h",
-"https://imgur.com/a/Czjo94h",
+"https://i.postimg.cc/3RxRW5yf/pp-sakib-bhai.jpg", "https://i.postimg.cc/3RxRW5yf/pp-sakib-bhai.jpg", "https://i.postimg.cc/3RxRW5yf/pp-sakib-bhai.jpg", "https://i.postimg.cc/3RxRW5yf/pp-sakib-bhai.jpg",
+"https://i.postimg.cc/3RxRW5yf/pp-sakib-bhai.jpg",
+"https://i.postimg.cc/3RxRW5yf/pp-sakib-bhai.jpg",
+"https://i.postimg.cc/3RxRW5yf/pp-sakib-bhai.jpg",
     ]
      var callback = () => api.sendMessage({ body: siu + "\n\n" + msg  + text, attachment: fs.createReadStream(__dirname + "/cache/loidbutter.jpg")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/loidbutter.jpg"), event.messageID);
     return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/loidbutter.jpg")).on("close", () => callback());
