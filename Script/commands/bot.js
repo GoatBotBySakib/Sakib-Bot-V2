@@ -74,8 +74,8 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
      return api.sendMessage("He is ᏕᏗᏦᎥᏰ ᏰᏂᏗᎥ ❤️ তাকে সবাই সাকিব নামে  চিনে🤙", threadID);
    };
 
-   if ((event.body.toLowerCase() == "ai") || (event.body.toLowerCase() == "Ai")) {
-     return api.sendMessage("If you want to use the AI command, type /ai ", threadID);
+   if ((event.body.toLowerCase() == "Suhaiba") || (event.body.toLowerCase() == "সুহাইবা")) {
+     return api.sendMessage("উনি গ্রুপের সেকেন্ড অ্যাডমিন🐥🌸", threadID);
    };
 
   
